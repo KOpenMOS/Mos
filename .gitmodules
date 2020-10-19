@@ -1,0 +1,8 @@
+[submodule "src/submodules/basyx"]
+	path = src/submodules/basyx
+	url = https://github.com/KopenMos/basyx.git
+	branch = mos
+[submodule "src/submodules/akka.net"]
+	path = src/submodules/akka.net
+	url = https://github.com/akkadotnet/akka.net.git
+	branch = master
