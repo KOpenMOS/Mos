@@ -1,29 +1,24 @@
-using System.Collections;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using BaSyx.Models.Core.AssetAdministrationShell.Enums;
 using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Core.AssetAdministrationShell.References;
 using BaSyx.Models.Core.Common;
-using BaSyx.Utils.DependencyInjection;
 using BaSyx.Utils.ResultHandling;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using Newtonsoft.Json;
-
-namespace AIMonitor.AAS.Client.Http
+namespace MOS.AAS.Client.Http
 {
     /// <summary>
     /// HttpClient For Search
     /// </summary>
-    public class TecalogDiscoveryHttpClient : TecalogHttpClient
+    public class DiscoveryHttpClient : MosHttpClient
     {
         private const string SHELL = "shells";
         private const string AAS = "aas";
         private const string DISCOVERY = "discovery";
 
-        public TecalogDiscoveryHttpClient(HttpClient httpClient) : base(httpClient)
+        public DiscoveryHttpClient(System.Net.Http.HttpClient httpClient) : base(httpClient)
         {
         }
 

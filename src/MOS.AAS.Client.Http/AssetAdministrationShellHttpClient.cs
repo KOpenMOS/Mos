@@ -12,12 +12,12 @@ using BaSyx.Utils.ResultHandling;
 
 using NLog;
 
-namespace AIMonitor.AAS.Client.Http
+namespace MOS.AAS.Client.Http
 {
     /// <summary>
     /// HttpClient AssetAdministraionShell
     /// </summary>
-    public class TecalogAssetAdministrationShellHttpClient : TecalogHttpClient
+    public class AssetAdministrationShellHttpClient : MosHttpClient
     {
         private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private const string AAS = "aas";
@@ -34,7 +34,7 @@ namespace AIMonitor.AAS.Client.Http
         private const string SEPERATOR = "/";
         private const int REQUEST_TIMEOUT = 30000;
 
-        public TecalogAssetAdministrationShellHttpClient(HttpClient httpClient) : base(httpClient)
+        public AssetAdministrationShellHttpClient(System.Net.Http.HttpClient httpClient) : base(httpClient)
         {
         }
 

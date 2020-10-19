@@ -1,25 +1,21 @@
-
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Core.Common;
 using BaSyx.Utils.ResultHandling;
 
-namespace AIMonitor.AAS.Client.Http
+namespace MOS.AAS.Client.Http
 {
     /// <summary>
     /// HttpClient AssetAdministrationShellRepository
     /// </summary>
-    public class TecalogAssetAdministrationShellRepositoryHttpClient : TecalogHttpClient
+    public class AssetAdministrationShellRepositoryHttpClient : MosHttpClient
     {
         private const string SHELL = "shells";
 
-        public TecalogAssetAdministrationShellRepositoryHttpClient(HttpClient httpClient) : base(httpClient)
+        public AssetAdministrationShellRepositoryHttpClient(System.Net.Http.HttpClient httpClient) : base(httpClient)
         {
         }
 

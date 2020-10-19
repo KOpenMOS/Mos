@@ -1,26 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 using BaSyx.Models.Communication;
 using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Core.AssetAdministrationShell.Generics.SubmodelElementTypes;
 using BaSyx.Models.Core.Common;
-using BaSyx.Utils.DependencyInjection;
 using BaSyx.Utils.ResultHandling;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using Newtonsoft.Json;
-
-namespace AIMonitor.AAS.Client.Http
+namespace MOS.AAS.Client.Http
 {
     /// <summary>
     /// HttpClient Submodel
     /// </summary>
-    public class TecalogSubmodelHttpClient : TecalogHttpClient
+    public class SubmodelHttpClient : MosHttpClient
     {
         private const string SUBMODEL = "submodel";
         private const string PROPERTIES = "properties";
@@ -32,14 +25,11 @@ namespace AIMonitor.AAS.Client.Http
         private const string SEPERATOR = "/";
         private const int REQUEST_TIMEOUT = 30000;
 
-        public TecalogSubmodelHttpClient(HttpClient httpClient) : base(httpClient)
+        public SubmodelHttpClient(System.Net.Http.HttpClient httpClient) : base(httpClient)
         {
         }
 
-        public void SetSubmodelIdShot(string aasId, string submodelId)
-        {
-            this.Endpoint = new Uri($"{this.HttpClient.BaseAddress}shells/{aasId}/aas/submodels/{submodelId}/{SUBMODEL}");
-        }
+        public void SetSubmodelIdShot(string aasId, string submodelId) => this.Endpoint = new Uri($"{this.HttpClient.BaseAddress}shells/{aasId}/aas/submodels/{submodelId}/{SUBMODEL}");
 
         public async Task<IResult<ISubmodel>> RetrieveSubmodel()
         {

@@ -28,7 +28,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BaSyx.Models.Core.AssetAdministrationShell.Enums;
-using AIMonitor.AAS.Client.Http;
+using MOS.AAS.Client.Http;
 using System.Diagnostics;
 using AasxPackageExplorer.Utils;
 using AasxWpfControlLibrary;
@@ -110,12 +110,12 @@ namespace AasxPackageExplorer
         public async Task ShowAdministrationShellInfo(string aasIdShort)
         {
             var baseAddress = ConfigirationManager.ReadSetting(TecalogConfigurationManagerId.ConnectServerBaseAddress);
-            var httpClient = new HttpClient
+            var httpClient = new System.Net.Http.HttpClient
             {
                 BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress
             };
 
-            var disconvery = new TecalogDiscoveryHttpClient(httpClient);
+            var disconvery = new DiscoveryHttpClient(httpClient);
             var retrievedAas = await disconvery.RetrieveAssetAdministrationShellAsync(aasIdShort);
             if (retrievedAas == null || retrievedAas.Entity == null || !retrievedAas.Success)
                 return;
@@ -174,7 +174,7 @@ namespace AasxPackageExplorer
         {
             try
             {
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new System.Net.Http.HttpClient())
                 {
                     var baseAddress = ConfigirationManager.ReadSetting(TecalogConfigurationManagerId.ConnectServerBaseAddress);
                     httpClient.BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress;
@@ -216,7 +216,7 @@ namespace AasxPackageExplorer
 
                     RedrawAllAasxElements();
                     
-                    using (var client = new HttpClient())
+                    using (var client = new System.Net.Http.HttpClient())
                     {
                         client.BaseAddress = _tecalogHttpClientBaseAddress;
                         client.DefaultRequestHeaders.Accept.Clear();
@@ -252,12 +252,12 @@ namespace AasxPackageExplorer
                 // 서버에서 목록을 받아와 다이얼로그에 목록을 표시
                 try
                 {
-                    using (var httpClient = new HttpClient())
+                    using (var httpClient = new System.Net.Http.HttpClient())
                     {
                         var baseAddress = ConfigirationManager.ReadSetting(TecalogConfigurationManagerId.ConnectServerBaseAddress);
                         httpClient.BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress;
 
-                        var disconvery = new TecalogDiscoveryHttpClient(httpClient);
+                        var disconvery = new DiscoveryHttpClient(httpClient);
                         var shellTypes = await disconvery.RetrieveAssetAdministrationShellsAsync();
 
                         var aasList = new List<AasView>();

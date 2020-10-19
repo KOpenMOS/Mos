@@ -1,33 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+
 using BaSyx.Utils.DependencyInjection;
 using BaSyx.Utils.PathHandling;
 using BaSyx.Utils.ResultHandling;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AIMonitor.AAS.Client.Http
+namespace MOS.AAS.Client.Http
 {
-    public class TecalogHttpClient
+    public class MosHttpClient
     {
-        public HttpClient HttpClient { get; }
+        public System.Net.Http.HttpClient HttpClient { get; }
         public Uri Endpoint { get; protected set; }
         public JsonSerializerSettings JsonSerializerSettings { get; set; }
 
-        public TecalogHttpClient(HttpClient httpClient)
+        public MosHttpClient(System.Net.Http.HttpClient httpClient)
         {
             this.HttpClient = httpClient;
             this.Endpoint = httpClient.BaseAddress;
 
-            JsonSerializerSettings = new JsonSerializerSettings();
-            JsonSerializerSettings.ContractResolver = new DependencyInjectionContractResolver(new DependencyInjectionExtension(new ServiceCollection().AddStandardImplementation()));
-            JsonSerializerSettings.Formatting = Formatting.Indented;
-            JsonSerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            JsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DependencyInjectionContractResolver(new DependencyInjectionExtension(new ServiceCollection().AddStandardImplementation())),
+                Formatting = Formatting.Indented,
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+            };
             JsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
         }
 
