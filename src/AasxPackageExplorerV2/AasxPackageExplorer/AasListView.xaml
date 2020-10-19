@@ -1,0 +1,44 @@
+<Window x:Class="AasxPackageExplorer.AasListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AasxPackageExplorer"
+        mc:Ignorable="d"
+        Title="AasListView" Height="450" Width="800">
+    
+    <Grid>
+        <Grid x:Name="OuterGrid" MaxHeight="800" MaxWidth="1400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <ListView Grid.Row="0" x:Name="aasList">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="AAS" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock TextAlignment="Center" Text="{Binding TypeName}" FontWeight="Bold" Background="LightGray" Foreground="DarkOrange"/>
+                                    <TextBlock Margin="5 0 0 0" TextAlignment="Center" Text="{Binding IdShort}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding SubmodelCount}" Header="SubmodelCount" Width="200" />
+                    <GridViewColumn Header="Load">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                <Button Content="Load" Margin="0" VerticalAlignment="Center" Click="LoadAas" Tag="{Binding IdShort}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
