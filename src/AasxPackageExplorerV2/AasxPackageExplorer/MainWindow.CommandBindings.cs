@@ -174,16 +174,28 @@ namespace AasxPackageExplorer
         {
             try
             {
-                using (var httpClient = new System.Net.Http.HttpClient())
+                using (var client = new HttpClient())
                 {
                     var baseAddress = ConfigirationManager.ReadSetting(TecalogConfigurationManagerId.ConnectServerBaseAddress);
-                    httpClient.BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress;
+                    client.BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress;
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/asset-administration-shell-package"));
 
-                    var xmlPaths = await httpClient.GetFromJsonAsync<IEnumerable<TecalogExportXml>>($"/savefile/{aasIdShort}");
-                    if (xmlPaths != null && xmlPaths.Count() > 0 && !string.IsNullOrWhiteSpace(xmlPaths.FirstOrDefault().Url))
+                    var httpRequest = new HttpRequestMessage
                     {
-                        var xmlContent = await httpClient.GetStringAsync($"/{xmlPaths.FirstOrDefault().Url}");
-                        return ShowAdministrationShellInfoFromXmlString(aasIdShort, xmlContent);
+                        Method = HttpMethod.Get,
+                        RequestUri = new Uri(client.BaseAddress, $"download/{aasIdShort}")
+                    };
+
+                    using (var message = await client.SendAsync(httpRequest))
+                    {
+                        var fileBytes = await message.Content.ReadAsByteArrayAsync();
+                        var tempPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonTemplates);
+                        var savePath = Path.Combine(tempPath, $"{aasIdShort}_{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 5)}.aasx");
+                        File.WriteAllBytes(savePath, fileBytes);
+                        Log.Info($"SaveToServer : {savePath}");
+
+                        UiLoadPackageWithNew(ref thePackageEnv, new AdminShellPackageEnv(savePath, false), savePath, onlyAuxiliary: false);
                     }
                 }
             }
