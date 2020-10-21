@@ -194,8 +194,8 @@ namespace AasxPackageExplorer
                         var savePath = Path.Combine(tempPath, $"{aasIdShort}_{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 5)}.aasx");
                         File.WriteAllBytes(savePath, fileBytes);
                         Log.Info($"SaveToServer : {savePath}");
-
                         UiLoadPackageWithNew(ref thePackageEnv, new AdminShellPackageEnv(savePath, false), savePath, onlyAuxiliary: false);
+                        thePackageEnv.IsLoadFromServer = true;
                     }
                 }
             }
