@@ -230,7 +230,8 @@ namespace AasxPackageExplorer
                     
                     using (var client = new System.Net.Http.HttpClient())
                     {
-                        client.BaseAddress = _tecalogHttpClientBaseAddress;
+                        var baseAddress = ConfigirationManager.ReadSetting(TecalogConfigurationManagerId.ConnectServerBaseAddress);
+                        client.BaseAddress = baseAddress != null ? new Uri(baseAddress) : _tecalogHttpClientBaseAddress;
                         client.DefaultRequestHeaders.Accept.Clear();
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
                         var content = new MultipartFormDataContent();
