@@ -248,8 +248,7 @@ namespace AasxPackageExplorer
 
                         using (var message = await client.SendAsync(httpRequest))
                         {
-                            var input = await message.Content.ReadAsStringAsync();
-                            Log.Info($"SaveToServer : {input}");
+                            Log.Info($"SaveToServer:Success:{message.StatusCode}");
                         }
                     }
                 }
