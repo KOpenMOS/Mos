@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\MOS.AAS.Client.Http\MOS.AAS.Client.Http.csproj" />
+    <ProjectReference Include="..\..\src\submodules\basyx\sdks\dotnet\basyx-core\BaSyx.Models\BaSyx.Models.csproj" />
+  </ItemGroup>
+
+</Project>
