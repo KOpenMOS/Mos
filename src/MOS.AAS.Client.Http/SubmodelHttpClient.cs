@@ -198,5 +198,12 @@ namespace MOS.AAS.Client.Http
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<InvocationResponse>(response, response.Entity);
         }
+
+        public async Task<IResult> EventFireAsync(string eventId)
+        {
+            var request = base.CreateRequest(GetUri(EVENTS, eventId), HttpMethod.Post);
+            var response = await SendRequestAsync(request);
+            return await EvaluateResponseAsync<IEvent>(response, response.Entity);
+        }
     }
 }
