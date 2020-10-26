@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using BaSyx.Models.Core.AssetAdministrationShell.Implementations.SubmodelElementTypes;
 using MOS.AAS.Client.Http;
+using BaSyx.Models.Core.Common;
+using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 
 namespace OHT_SampleClient
 {
@@ -21,10 +23,133 @@ namespace OHT_SampleClient
 
         public TestSender()
         {
-            _timer1 = new Timer(async o => await Do1(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(4));
-            _timer2 = new Timer(async o => await Do2(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7));
-            _timer3 = new Timer(async o => await Do3(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
+            _timer1 = new Timer(async o => await Do1One(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(4));
+            //_timer1 = new Timer(async o => await Do1(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(4));
+            //_timer2 = new Timer(async o => await Do2(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7));
+            //_timer3 = new Timer(async o => await Do3(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
         }
+
+        public async Task Do1One(object? state)
+        {
+            var aasId = "OHT_001";
+            var submodelId = "Sensor1";
+            var submodelElementId = $"Data{submodelId}";
+
+            // 임시생성 데이터
+            var datas = GetDatasDic(aasId, new[]
+            {
+                "time",
+                "VibrationAx",
+                "VibrationAy",
+                "VibrationAz",
+                "VibrationGx",
+                "VibrationGy",
+                "VibrationGz",
+            }, 30).ToArray();
+
+            /*
+             * Submodel-SubmodelElement(Container)-SubmodelCollection-List<Property>
+             * 
+             * Submodel : submodel
+             * SubmodelElement(Container) : submodel.SubmodelElements
+             * SubmodelCollection : 1개 row 데이터 (collection형태)
+             * List<Property> : 여러 데이터  (time, VibrationAx,  VibrationAy, VibrationAz, ...)
+             */
+
+            // 전달 데이터 구조
+            var collection = new SubmodelElementCollection()
+            {
+                IdShort = submodelElementId,
+                Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                {
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{0}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new Property{IdShort = "time", Value = datas[0]["time"] },
+                            new Property{IdShort = "VibrationAx", Value = datas[0]["VibrationAx"] },
+                            new Property{IdShort = "VibrationAy", Value = datas[0]["VibrationAy"] },
+                            new Property{IdShort = "VibrationAz", Value = datas[0]["VibrationAz"] },
+                            new Property{IdShort = "VibrationGx", Value = datas[0]["VibrationGx"] },
+                            new Property{IdShort = "VibrationGy", Value = datas[0]["VibrationGy"] },
+                            new Property{IdShort = "VibrationGz", Value = datas[0]["VibrationGz"] },
+                        })
+                    },
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{1}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new Property{IdShort = "time", Value = datas[0]["time"] },
+                            new Property{IdShort = "VibrationAx", Value = datas[1]["VibrationAx"] },
+                            new Property{IdShort = "VibrationAy", Value = datas[1]["VibrationAy"] },
+                            new Property{IdShort = "VibrationAz", Value = datas[1]["VibrationAz"] },
+                            new Property{IdShort = "VibrationGx", Value = datas[1]["VibrationGx"] },
+                            new Property{IdShort = "VibrationGy", Value = datas[1]["VibrationGy"] },
+                            new Property{IdShort = "VibrationGz", Value = datas[1]["VibrationGz"] },
+                        })
+                    },
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{2}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new Property{IdShort = "time", Value = datas[0]["time"] },
+                            new Property{IdShort = "VibrationAx", Value = datas[2]["VibrationAx"] },
+                            new Property{IdShort = "VibrationAy", Value = datas[2]["VibrationAy"] },
+                            new Property{IdShort = "VibrationAz", Value = datas[2]["VibrationAz"] },
+                            new Property{IdShort = "VibrationGx", Value = datas[2]["VibrationGx"] },
+                            new Property{IdShort = "VibrationGy", Value = datas[2]["VibrationGy"] },
+                            new Property{IdShort = "VibrationGz", Value = datas[2]["VibrationGz"] },
+                        })
+                    },
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{3}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new Property{IdShort = "time", Value = datas[0]["time"] },
+                            new Property{IdShort = "VibrationAx", Value = datas[3]["VibrationAx"] },
+                            new Property{IdShort = "VibrationAy", Value = datas[3]["VibrationAy"] },
+                            new Property{IdShort = "VibrationAz", Value = datas[3]["VibrationAz"] },
+                            new Property{IdShort = "VibrationGx", Value = datas[3]["VibrationGx"] },
+                            new Property{IdShort = "VibrationGy", Value = datas[3]["VibrationGy"] },
+                            new Property{IdShort = "VibrationGz", Value = datas[3]["VibrationGz"] },
+                        })
+                    },
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{4}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new Property{IdShort = "time", Value = datas[0]["time"] },
+                            new Property{IdShort = "VibrationAx", Value = datas[4]["VibrationAx"] },
+                            new Property{IdShort = "VibrationAy", Value = datas[4]["VibrationAy"] },
+                            new Property{IdShort = "VibrationAz", Value = datas[4]["VibrationAz"] },
+                            new Property{IdShort = "VibrationGx", Value = datas[4]["VibrationGx"] },
+                            new Property{IdShort = "VibrationGy", Value = datas[4]["VibrationGy"] },
+                            new Property{IdShort = "VibrationGz", Value = datas[4]["VibrationGz"] },
+                        })
+                    },
+                })
+            };
+
+            var client = new SubmodelHttpClient(GetHttpClient());
+            // set address
+            client.SetSubmodelIdShot(aasId, submodelId);
+
+            // UPDATE DATA
+            await client.UpdateSubmodelElement(submodelElementId, collection);
+
+            // EVENT FIRE
+            var eventId = $"{submodelId}Event";
+            var eventSubmodelId = "InputEvent";
+            // set address
+            client.SetSubmodelIdShot(aasId, eventSubmodelId);
+            await client.EventFireAsync(eventId);
+        }
+
 
         public async Task Do1(object? state)
         {
