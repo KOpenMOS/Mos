@@ -24,6 +24,9 @@ namespace OHT_SampleClient
         public TestSender()
         {
             _timer1 = new Timer(async o => await Do1One(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(4));
+            _timer2 = new Timer(async o => await Do2One(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7));
+            _timer3 = new Timer(async o => await Do3One(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
+
             //_timer1 = new Timer(async o => await Do1(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(4));
             //_timer2 = new Timer(async o => await Do2(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7));
             //_timer3 = new Timer(async o => await Do3(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
@@ -67,13 +70,13 @@ namespace OHT_SampleClient
                         IdShort = $"{0}",
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
-                            new Property{IdShort = "time", Value = datas[0]["time"] },
-                            new Property{IdShort = "VibrationAx", Value = datas[0]["VibrationAx"] },
-                            new Property{IdShort = "VibrationAy", Value = datas[0]["VibrationAy"] },
-                            new Property{IdShort = "VibrationAz", Value = datas[0]["VibrationAz"] },
-                            new Property{IdShort = "VibrationGx", Value = datas[0]["VibrationGx"] },
-                            new Property{IdShort = "VibrationGy", Value = datas[0]["VibrationGy"] },
-                            new Property{IdShort = "VibrationGz", Value = datas[0]["VibrationGz"] },
+                            new Property { IdShort = "time", Value = datas[0]["time"] },
+                            new Property { IdShort = "VibrationAx", Value = datas[0]["VibrationAx"] },
+                            new Property { IdShort = "VibrationAy", Value = datas[0]["VibrationAy"] },
+                            new Property { IdShort = "VibrationAz", Value = datas[0]["VibrationAz"] },
+                            new Property { IdShort = "VibrationGx", Value = datas[0]["VibrationGx"] },
+                            new Property { IdShort = "VibrationGy", Value = datas[0]["VibrationGy"] },
+                            new Property { IdShort = "VibrationGz", Value = datas[0]["VibrationGz"] },
                         })
                     },
                     new SubmodelElementCollection()
@@ -81,13 +84,13 @@ namespace OHT_SampleClient
                         IdShort = $"{1}",
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
-                            new Property{IdShort = "time", Value = datas[0]["time"] },
-                            new Property{IdShort = "VibrationAx", Value = datas[1]["VibrationAx"] },
-                            new Property{IdShort = "VibrationAy", Value = datas[1]["VibrationAy"] },
-                            new Property{IdShort = "VibrationAz", Value = datas[1]["VibrationAz"] },
-                            new Property{IdShort = "VibrationGx", Value = datas[1]["VibrationGx"] },
-                            new Property{IdShort = "VibrationGy", Value = datas[1]["VibrationGy"] },
-                            new Property{IdShort = "VibrationGz", Value = datas[1]["VibrationGz"] },
+                            new Property { IdShort = "time", Value = datas[0]["time"] },
+                            new Property { IdShort = "VibrationAx", Value = datas[1]["VibrationAx"] },
+                            new Property { IdShort = "VibrationAy", Value = datas[1]["VibrationAy"] },
+                            new Property { IdShort = "VibrationAz", Value = datas[1]["VibrationAz"] },
+                            new Property { IdShort = "VibrationGx", Value = datas[1]["VibrationGx"] },
+                            new Property { IdShort = "VibrationGy", Value = datas[1]["VibrationGy"] },
+                            new Property { IdShort = "VibrationGz", Value = datas[1]["VibrationGz"] },
                         })
                     },
                     new SubmodelElementCollection()
@@ -95,13 +98,13 @@ namespace OHT_SampleClient
                         IdShort = $"{2}",
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
-                            new Property{IdShort = "time", Value = datas[0]["time"] },
-                            new Property{IdShort = "VibrationAx", Value = datas[2]["VibrationAx"] },
-                            new Property{IdShort = "VibrationAy", Value = datas[2]["VibrationAy"] },
-                            new Property{IdShort = "VibrationAz", Value = datas[2]["VibrationAz"] },
-                            new Property{IdShort = "VibrationGx", Value = datas[2]["VibrationGx"] },
-                            new Property{IdShort = "VibrationGy", Value = datas[2]["VibrationGy"] },
-                            new Property{IdShort = "VibrationGz", Value = datas[2]["VibrationGz"] },
+                            new Property { IdShort = "time", Value = datas[0]["time"] },
+                            new Property { IdShort = "VibrationAx", Value = datas[2]["VibrationAx"] },
+                            new Property { IdShort = "VibrationAy", Value = datas[2]["VibrationAy"] },
+                            new Property { IdShort = "VibrationAz", Value = datas[2]["VibrationAz"] },
+                            new Property { IdShort = "VibrationGx", Value = datas[2]["VibrationGx"] },
+                            new Property { IdShort = "VibrationGy", Value = datas[2]["VibrationGy"] },
+                            new Property { IdShort = "VibrationGz", Value = datas[2]["VibrationGz"] },
                         })
                     },
                     new SubmodelElementCollection()
@@ -109,13 +112,13 @@ namespace OHT_SampleClient
                         IdShort = $"{3}",
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
-                            new Property{IdShort = "time", Value = datas[0]["time"] },
-                            new Property{IdShort = "VibrationAx", Value = datas[3]["VibrationAx"] },
-                            new Property{IdShort = "VibrationAy", Value = datas[3]["VibrationAy"] },
-                            new Property{IdShort = "VibrationAz", Value = datas[3]["VibrationAz"] },
-                            new Property{IdShort = "VibrationGx", Value = datas[3]["VibrationGx"] },
-                            new Property{IdShort = "VibrationGy", Value = datas[3]["VibrationGy"] },
-                            new Property{IdShort = "VibrationGz", Value = datas[3]["VibrationGz"] },
+                            new Property { IdShort = "time", Value = datas[0]["time"] },
+                            new Property { IdShort = "VibrationAx", Value = datas[3]["VibrationAx"] },
+                            new Property { IdShort = "VibrationAy", Value = datas[3]["VibrationAy"] },
+                            new Property { IdShort = "VibrationAz", Value = datas[3]["VibrationAz"] },
+                            new Property { IdShort = "VibrationGx", Value = datas[3]["VibrationGx"] },
+                            new Property { IdShort = "VibrationGy", Value = datas[3]["VibrationGy"] },
+                            new Property { IdShort = "VibrationGz", Value = datas[3]["VibrationGz"] },
                         })
                     },
                     new SubmodelElementCollection()
@@ -123,13 +126,13 @@ namespace OHT_SampleClient
                         IdShort = $"{4}",
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
-                            new Property{IdShort = "time", Value = datas[0]["time"] },
-                            new Property{IdShort = "VibrationAx", Value = datas[4]["VibrationAx"] },
-                            new Property{IdShort = "VibrationAy", Value = datas[4]["VibrationAy"] },
-                            new Property{IdShort = "VibrationAz", Value = datas[4]["VibrationAz"] },
-                            new Property{IdShort = "VibrationGx", Value = datas[4]["VibrationGx"] },
-                            new Property{IdShort = "VibrationGy", Value = datas[4]["VibrationGy"] },
-                            new Property{IdShort = "VibrationGz", Value = datas[4]["VibrationGz"] },
+                            new Property { IdShort = "time", Value = datas[0]["time"] },
+                            new Property { IdShort = "VibrationAx", Value = datas[4]["VibrationAx"] },
+                            new Property { IdShort = "VibrationAy", Value = datas[4]["VibrationAy"] },
+                            new Property { IdShort = "VibrationAz", Value = datas[4]["VibrationAz"] },
+                            new Property { IdShort = "VibrationGx", Value = datas[4]["VibrationGx"] },
+                            new Property { IdShort = "VibrationGy", Value = datas[4]["VibrationGy"] },
+                            new Property { IdShort = "VibrationGz", Value = datas[4]["VibrationGz"] },
                         })
                     },
                 })
@@ -149,7 +152,84 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, eventSubmodelId);
             await client.EventFireAsync(eventId);
         }
+        public async Task Do2One(object? state)
+        {
+            var aasId = "OHT_001";
+            var submodelId = "Video1";
+            var submodelElementId = $"Data{submodelId}";
 
+            // 전달 데이터 구조
+            var url = GetTempFileUrl();
+            var collection = new SubmodelElementCollection()
+            {
+                IdShort = submodelElementId,
+                Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                {
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{0}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new File { IdShort = "0", Value = url },
+                        })
+                    },
+                })
+            };
+
+            var client = new SubmodelHttpClient(GetHttpClient());
+            // set address
+            client.SetSubmodelIdShot(aasId, submodelId);
+
+            // UPDATE DATA
+            await client.UpdateSubmodelElement(submodelElementId, collection);
+
+            // EVENT FIRE
+            var eventId = $"{submodelId}Event";
+            var eventSubmodelId = "InputEvent";
+            // set address
+            client.SetSubmodelIdShot(aasId, eventSubmodelId);
+            await client.EventFireAsync(eventId);
+        }
+        public async Task Do3One(object? state)
+        {
+            var aasId = "OTHER_001";
+            var submodelId = "Video1";
+            var submodelElementId = $"Data{submodelId}";
+
+            // 전달 데이터 구조
+            var url = GetTempFileUrl();
+            var collection = new SubmodelElementCollection()
+            {
+                IdShort = submodelElementId,
+                Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                {
+                    new SubmodelElementCollection()
+                    {
+                        IdShort = $"{0}",
+                        Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
+                        {
+                            new File { IdShort = "0", Value = url },
+                        })
+                    },
+                })
+            };
+
+            var client = new SubmodelHttpClient(GetHttpClient());
+            // set address
+            client.SetSubmodelIdShot(aasId, submodelId);
+
+            // UPDATE DATA
+            await client.UpdateSubmodelElement(submodelElementId, collection);
+
+            // EVENT FIRE
+            var eventId = $"{submodelId}Event";
+            var eventSubmodelId = "InputEvent";
+            client.SetSubmodelIdShot(aasId, eventSubmodelId);
+            // set address
+            await client.EventFireAsync(eventId);
+        }
+
+        #region 다량전송시
 
         public async Task Do1(object? state)
         {
@@ -283,6 +363,8 @@ namespace OHT_SampleClient
             var allTasks = ohtTasks.SelectMany(t => t);
             await Task.WhenAll(allTasks);
         }
+
+        #endregion
 
         private HttpClient GetHttpClient(string url = "")
         {
