@@ -16,7 +16,6 @@ namespace OHT_SampleClient
             await testSender.SendSensorDataEventAsync("OHT_001", "InputEvent", "Sensor1Event");
             await testSender.SendVideoAsync("OHT_001", "Video1", "DataVideo1");
             await testSender.SendVideoEventAsync("OHT_001", "Video1", "Video1Event");
-            Console.ReadLine();
         }
 
         private static HttpClient BuildHttpClient(Uri baseAddress)
