@@ -32,6 +32,11 @@ namespace OHT_SampleClient
             //_timer3 = new Timer(async o => await Do3(o), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
         }
 
+        /// <summary>
+        /// 데이터 전송(OHT, 데이터)
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public async Task Do1One(object? state)
         {
             var aasId = "OHT_001";
@@ -152,6 +157,11 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, eventSubmodelId);
             await client.EventFireAsync(eventId);
         }
+        /// <summary>
+        /// 데이터 전송(OHT, 이미지 or 영상 경로)
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public async Task Do2One(object? state)
         {
             var aasId = "OHT_001";
@@ -190,6 +200,11 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, eventSubmodelId);
             await client.EventFireAsync(eventId);
         }
+        /// <summary>
+        /// 데이터 전송(OHTER, 이미지 or 영상 경로)
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public async Task Do3One(object? state)
         {
             var aasId = "OTHER_001";
@@ -229,7 +244,7 @@ namespace OHT_SampleClient
             await client.EventFireAsync(eventId);
         }
 
-        #region 다량전송시
+        #region 다량전송시 동작 예시
 
         public async Task Do1(object? state)
         {
@@ -366,6 +381,8 @@ namespace OHT_SampleClient
 
         #endregion
 
+        #region Private Methods
+
         private HttpClient GetHttpClient(string url = "")
         {
             var baseAddress = string.IsNullOrWhiteSpace(url) ? this.BaseAddress : url;
@@ -439,6 +456,8 @@ namespace OHT_SampleClient
             }).ToArray();
             return datas;
         }
+
+        #endregion
 
     }
 }
