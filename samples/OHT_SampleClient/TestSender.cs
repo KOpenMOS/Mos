@@ -59,13 +59,13 @@ namespace OHT_SampleClient
                             IdShort = index.ToString(),
                             Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                             {
-                                new Property { IdShort = "time", Value = rawData["time"] },
-                                new Property { IdShort = "VibrationAx", Value = rawData["VibrationAx"] },
-                                new Property { IdShort = "VibrationAy", Value = rawData["VibrationAy"] },
-                                new Property { IdShort = "VibrationAz", Value = rawData["VibrationAz"] },
-                                new Property { IdShort = "VibrationGx", Value = rawData["VibrationGx"] },
-                                new Property { IdShort = "VibrationGy", Value = rawData["VibrationGy"] },
-                                new Property { IdShort = "VibrationGz", Value = rawData["VibrationGz"] },
+                                new Property<DateTime> { IdShort = "time", Value = (DateTime)rawData["time"] },
+                                new Property<string> { IdShort = "VibrationAx", Value = rawData["VibrationAx"].ToString() },
+                                new Property<string> { IdShort = "VibrationAy", Value = rawData["VibrationAy"].ToString() },
+                                new Property<string> { IdShort = "VibrationAz", Value = rawData["VibrationAz"].ToString() },
+                                new Property<string> { IdShort = "VibrationGx", Value = rawData["VibrationGx"].ToString() },
+                                new Property<string> { IdShort = "VibrationGy", Value = rawData["VibrationGy"].ToString() },
+                                new Property<string> { IdShort = "VibrationGz", Value = rawData["VibrationGz"].ToString() },
                             })
                         }))
             };
