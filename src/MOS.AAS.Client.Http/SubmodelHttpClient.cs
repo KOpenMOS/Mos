@@ -203,7 +203,7 @@ namespace MOS.AAS.Client.Http
         {
             var request = base.CreateRequest(GetUri(EVENTS, eventId), HttpMethod.Post);
             var response = await SendRequestAsync(request);
-            return await EvaluateResponseAsync<IEvent>(response, response.Entity);
+            return await EvaluateResponseAsync(response, response.Entity);
         }
     }
 }
