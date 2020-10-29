@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MOS.AAS.Client.Http", "..\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSyx.Models", "..\..\src\submodules\basyx\sdks\dotnet\basyx-core\BaSyx.Models\BaSyx.Models.csproj", "{7D3A1B15-D101-4249-AD29-EB63E115F2B5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSyx.Utils", "..\..\src\submodules\basyx\sdks\dotnet\basyx-core\BaSyx.Utils\BaSyx.Utils.csproj", "{ABE14498-899B-44D1-9E68-4BD878E64469}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSyx.Utils.DependencyInjection.Abstractions", "..\..\src\submodules\basyx\sdks\dotnet\basyx-core\BaSyx.Utils.DependencyInjection.Abstractions\BaSyx.Utils.DependencyInjection.Abstractions.csproj", "{72E0F473-D1A1-4846-927D-E0F6BD3C5DAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSyx.Utils.DependencyInjection", "..\..\src\submodules\basyx\sdks\dotnet\basyx-core\BaSyx.Utils.DependencyInjection\BaSyx.Utils.DependencyInjection.csproj", "{BA47B024-35DB-40A3-A4B7-6A4FE12B36FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{7D3A1B15-D101-4249-AD29-EB63E115F2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3A1B15-D101-4249-AD29-EB63E115F2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3A1B15-D101-4249-AD29-EB63E115F2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE14498-899B-44D1-9E68-4BD878E64469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE14498-899B-44D1-9E68-4BD878E64469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE14498-899B-44D1-9E68-4BD878E64469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE14498-899B-44D1-9E68-4BD878E64469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E0F473-D1A1-4846-927D-E0F6BD3C5DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E0F473-D1A1-4846-927D-E0F6BD3C5DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E0F473-D1A1-4846-927D-E0F6BD3C5DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E0F473-D1A1-4846-927D-E0F6BD3C5DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA47B024-35DB-40A3-A4B7-6A4FE12B36FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA47B024-35DB-40A3-A4B7-6A4FE12B36FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA47B024-35DB-40A3-A4B7-6A4FE12B36FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA47B024-35DB-40A3-A4B7-6A4FE12B36FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
