@@ -30,13 +30,10 @@ namespace OHT_SampleClient
             // 임시생성 데이터
             var rawDatas = BuildSensorRawDatas(aasId, new[]
             {
-                "time",
-                "VibrationAx",
-                "VibrationAy",
-                "VibrationAz",
-                "VibrationGx",
-                "VibrationGy",
-                "VibrationGz",
+                "Time",
+                "Ax",
+                "Ay",
+                "Az",
             }, 30).ToArray();
 
             /*
@@ -59,13 +56,10 @@ namespace OHT_SampleClient
                             IdShort = index.ToString(),
                             Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                             {
-                                new Property<DateTime> { IdShort = "time", Value = (DateTime)rawData["time"] },
-                                new Property<string> { IdShort = "VibrationAx", Value = rawData["VibrationAx"].ToString() },
-                                new Property<string> { IdShort = "VibrationAy", Value = rawData["VibrationAy"].ToString() },
-                                new Property<string> { IdShort = "VibrationAz", Value = rawData["VibrationAz"].ToString() },
-                                new Property<string> { IdShort = "VibrationGx", Value = rawData["VibrationGx"].ToString() },
-                                new Property<string> { IdShort = "VibrationGy", Value = rawData["VibrationGy"].ToString() },
-                                new Property<string> { IdShort = "VibrationGz", Value = rawData["VibrationGz"].ToString() },
+                                new Property<DateTime> { IdShort = "Time", Value = (DateTime)rawData["Time"] },
+                                new Property<int> { IdShort = "Ax", Value = (int)rawData["Ax"] },
+                                new Property<int> { IdShort = "Ay", Value = (int)rawData["Ay"] },
+                                new Property<int> { IdShort = "Az", Value = (int)rawData["Az"] },
                             })
                         }))
             };
@@ -95,6 +89,31 @@ namespace OHT_SampleClient
 
             // 센서 data 갱신 EVENT FIRE
             await client.EventFireAsync(sensorDataEventId);
+        }
+
+        /// <summary>
+        /// 센서 데이터 가져오기
+        /// </summary>
+        /// <param name="aasId">장비 AAS Id</param>
+        /// <param name="sensorDataSubmodelId">센서 Id</param>
+        /// <param name="sensorDataElementId">센서 Data Element Id</param>
+        /// <returns></returns>
+        public async Task GetSensorDataAsync(string aasId, string sensorDataSubmodelId, string sensorDataElementId)
+        {
+            var client = new SubmodelHttpClient(_httpClient);
+
+            // 센서 Data 가져오는 Submodel endpoint 구성
+            client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
+
+            var result = await client.RetrieveSubmodelElement(sensorDataElementId);
+
+            var sensorElementCollection = (ElementContainer<SubmodelElementCollection>)result.GetEntity<SubmodelElementCollection>().Value;
+
+            foreach (var sensorData in sensorElementCollection)
+            {
+                var propertyStrings = sensorData.Value.Cast<Property>().Select(p => $"{p.IdShort}:{p.Value}");
+                Console.WriteLine(string.Join(',', propertyStrings));
+            }
         }
 
         /// <summary>
@@ -182,8 +201,7 @@ namespace OHT_SampleClient
                         var onData = random.Next(3000, 7000);
                         //var underData = random.Next(1, 999999);
                         var underData = 0;
-                        float ranData = onData + (float)(underData * 0.000001);
-                        data = ranData.ToString();
+                        data = onData + (float)(underData * 0.000001);
                     }
                     dataDic.Add(valueName, data);
                 }
