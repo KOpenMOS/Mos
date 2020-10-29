@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Core.AssetAdministrationShell.Implementations.SubmodelElementTypes;
 using BaSyx.Models.Core.Common;
+using BaSyx.Models.Extensions;
 
 using MOS.AAS.Client.Http;
 
@@ -28,13 +29,7 @@ namespace OHT_SampleClient
         public async Task SendSensorDataAsync(string aasId, string sensorDataSubmodelId, string sensorDataElementId)
         {
             // 임시생성 데이터
-            var rawDatas = BuildSensorRawDatas(aasId, new[]
-            {
-                "Time",
-                "Ax",
-                "Ay",
-                "Az",
-            }, 30).ToArray();
+            var rawDatas = BuildSensorRawDatas();
 
             /*
              * Submodel-SubmodelElement(Container)-SubmodelCollection-List<Property>
@@ -56,10 +51,10 @@ namespace OHT_SampleClient
                             IdShort = index.ToString(),
                             Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                             {
-                                new Property<DateTime> { IdShort = "Time", Value = (DateTime)rawData["Time"] },
-                                new Property<int> { IdShort = "Ax", Value = (int)rawData["Ax"] },
-                                new Property<int> { IdShort = "Ay", Value = (int)rawData["Ay"] },
-                                new Property<int> { IdShort = "Az", Value = (int)rawData["Az"] },
+                                new Property<DateTime> { IdShort = "Time", Value = (DateTime)rawData[0] },
+                                new Property<float> { IdShort = "Ax", Value = (float)rawData[1] },
+                                new Property<float> { IdShort = "Ay", Value = (float)rawData[2] },
+                                new Property<float> { IdShort = "Az", Value = (float)rawData[3] },
                             })
                         }))
             };
@@ -106,10 +101,10 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
             var result = await client.RetrieveSubmodelElement(sensorDataElementId);
+            SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
+            IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
-            var sensorElementCollection = (ElementContainer<SubmodelElementCollection>)result.GetEntity<SubmodelElementCollection>().Value;
-
-            foreach (var sensorData in sensorElementCollection)
+            foreach (var sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
             {
                 var propertyStrings = sensorData.Value.Cast<Property>().Select(p => $"{p.IdShort}:{p.Value}");
                 Console.WriteLine(string.Join(',', propertyStrings));
@@ -171,44 +166,35 @@ namespace OHT_SampleClient
             await client.EventFireAsync(videoDataEvetId);
         }
 
-        private static ICollection<Dictionary<string, object>> BuildSensorRawDatas(string aasId, string[] valueNames, int cnt)
+        /// <summary>
+        /// 영상 데이터 가져오기
+        /// </summary>
+        /// <param name="aasId">장비 AAS Id</param>
+        /// <param name="videoDataSubmodelId">비디오 데이터 Id</param>
+        /// <param name="videoDataElementlId">비디오 Data Element Id</param>
+        /// <returns></returns>
+        public async Task GetVideoAsync(string aasId, string videoDataSubmodelId, string videoDataElementlId)
         {
-            Func<DateTime> defaultDt = () => DateTime.Now;
-            var random = new Random((int)defaultDt().ToBinary());
-            var datas = Enumerable.Range(1, cnt).Select(idx =>
-            {
-                var dataDic = new Dictionary<string, object>();
-                foreach (var valueName in valueNames)
-                {
-                    object data;
-                    if (valueName.ToLower().Contains("name"))
-                    {
-                        data = "equip1";
-                    }
-                    else if (valueName.ToLower().Contains("time"))
-                    {
-                        data = DateTime.UtcNow;
-                    }
-                    else if (valueName.ToLower().Contains("move") && new[] { "x", "y", "z" }.Any(o => valueName.ToLower().Contains(o)))
-                    {
-                        var onData = random.Next(100, 700);
-                        var underData = random.Next(1, 99);
-                        float ranData = onData + (float)(underData * 0.01);
-                        data = ranData.ToString();
-                    }
-                    else
-                    {
-                        var onData = random.Next(3000, 7000);
-                        //var underData = random.Next(1, 999999);
-                        var underData = 0;
-                        data = onData + (float)(underData * 0.000001);
-                    }
-                    dataDic.Add(valueName, data);
-                }
+            var client = new SubmodelHttpClient(_httpClient);
 
-                return dataDic;
-            }).ToArray();
-            return datas;
+            // 센서 Data 가져오는 Submodel endpoint 구성
+            client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
+
+            var result = await client.RetrieveSubmodelElement(videoDataElementlId);
+            SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
+            IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
+
+            foreach (var sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
+            {
+                var property = sensorData.Value[0] as Property;
+                Console.WriteLine($"{property.IdShort} : {property.Value}");
+
+                var file = sensorData.Value[1] as File;
+                Console.WriteLine($"{file.IdShort} : {file.MimeType} {file.Value}");
+            }
         }
+
+        private static IEnumerable<object[]> BuildSensorRawDatas() =>
+        Enumerable.Range(0, 3).Select(idx => new object[] { DateTime.UtcNow, 0.01f, 0.02f, 0.03f });
     }
 }
