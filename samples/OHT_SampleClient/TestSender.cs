@@ -79,7 +79,7 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 장비 Event Submodel endpoint 설정
+            // 센서 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 센서 data 갱신 EVENT FIRE
@@ -141,7 +141,7 @@ namespace OHT_SampleClient
 
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 비디오 로그 저장하는 Submodel endpoint 구성
+            // 영상 데이터 저장하는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
             // UPDATE DATA
@@ -159,10 +159,10 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 장비 Event Submodel endpoint 설정
+            // 영상 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
-            // 비디오 data 갱신 EVENT FIRE
+            // 영상 데이터 갱신 EVENT FIRE
             await client.EventFireAsync(videoDataEvetId);
         }
 
@@ -177,7 +177,7 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 센서 Data 가져오는 Submodel endpoint 구성
+            // 영상 데이터 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
             var result = await client.RetrieveSubmodelElementAsync(videoDataElementlId);
@@ -195,6 +195,6 @@ namespace OHT_SampleClient
         }
 
         private static IEnumerable<object[]> BuildSensorRawDatas() =>
-        Enumerable.Range(0, 3).Select(idx => new object[] { DateTime.UtcNow, 0.01f, 0.02f, 0.03f });
+            Enumerable.Range(0, 3).Select(idx => new object[] { DateTime.UtcNow, 0.01f, 0.02f, 0.03f });
     }
 }
