@@ -62,7 +62,7 @@ namespace MOS.AAS.Client.Http
         /// </summary>
         /// <param name="assetKind"></param>
         /// <returns></returns>
-        public async Task<IResult<IElementContainer<IAssetAdministrationShell>>> GetAssetAdministrationShellsByCategory(AssetKind assetKind, string category)
+        public async Task<IResult<IElementContainer<IAssetAdministrationShell>>> GetAssetAdministrationShellsByCategoryAsync(AssetKind assetKind, string category)
         {
             var request = this.CreateRequest(GetUri(DISCOVERY, "GetAssetAdministrationShellsByCategory", assetKind.ToString(), category), HttpMethod.Get);
             var response = await SendRequestAsync(request);
@@ -74,7 +74,7 @@ namespace MOS.AAS.Client.Http
         /// </summary>
         /// <param name="assetKind"></param>
         /// <returns></returns>
-        public async Task<IResult<IElementContainer<IAssetAdministrationShell>>> GetAssetAdministrationShellsByMonitor(AssetKind assetKind, bool isMonitoring)
+        public async Task<IResult<IElementContainer<IAssetAdministrationShell>>> GetAssetAdministrationShellsByMonitorAsync(AssetKind assetKind, bool isMonitoring)
         {
             var request = this.CreateRequest(GetUri(DISCOVERY, "GetAssetAdministrationShellsByMonitor", assetKind.ToString(), isMonitoring.ToString()), HttpMethod.Get);
             var response = await SendRequestAsync(request);

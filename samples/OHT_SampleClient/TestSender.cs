@@ -65,7 +65,7 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
             // UPDATE DATA
-            await client.UpdateSubmodelElement(sensorDataElementId, sensorDataElement);
+            await client.UpdateSubmodelElementAsync(sensorDataElementId, sensorDataElement);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 장비 Event Submodel endpoint 설정
+            // 센서 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 센서 data 갱신 EVENT FIRE
@@ -100,7 +100,7 @@ namespace OHT_SampleClient
             // 센서 Data 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElement(sensorDataElementId);
+            var result = await client.RetrieveSubmodelElementAsync(sensorDataElementId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
@@ -141,11 +141,11 @@ namespace OHT_SampleClient
 
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 비디오 로그 저장하는 Submodel endpoint 구성
+            // 영상 데이터 저장하는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
             // UPDATE DATA
-            await client.UpdateSubmodelElement(videoDataElementlId, videoDataElement);
+            await client.UpdateSubmodelElementAsync(videoDataElementlId, videoDataElement);
         }
 
         /// <summary>
@@ -159,10 +159,10 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 장비 Event Submodel endpoint 설정
+            // 영상 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
-            // 비디오 data 갱신 EVENT FIRE
+            // 영상 데이터 갱신 EVENT FIRE
             await client.EventFireAsync(videoDataEvetId);
         }
 
@@ -177,10 +177,10 @@ namespace OHT_SampleClient
         {
             var client = new SubmodelHttpClient(_httpClient);
 
-            // 센서 Data 가져오는 Submodel endpoint 구성
+            // 영상 데이터 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElement(videoDataElementlId);
+            var result = await client.RetrieveSubmodelElementAsync(videoDataElementlId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
@@ -195,6 +195,6 @@ namespace OHT_SampleClient
         }
 
         private static IEnumerable<object[]> BuildSensorRawDatas() =>
-        Enumerable.Range(0, 3).Select(idx => new object[] { DateTime.UtcNow, 0.01f, 0.02f, 0.03f });
+            Enumerable.Range(0, 3).Select(idx => new object[] { DateTime.UtcNow, 0.01f, 0.02f, 0.03f });
     }
 }
