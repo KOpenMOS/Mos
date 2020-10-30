@@ -65,7 +65,7 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
             // UPDATE DATA
-            await client.UpdateSubmodelElement(sensorDataElementId, sensorDataElement);
+            await client.UpdateSubmodelElementAsync(sensorDataElementId, sensorDataElement);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace OHT_SampleClient
             // 센서 Data 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElement(sensorDataElementId);
+            var result = await client.RetrieveSubmodelElementAsync(sensorDataElementId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
@@ -145,7 +145,7 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
             // UPDATE DATA
-            await client.UpdateSubmodelElement(videoDataElementlId, videoDataElement);
+            await client.UpdateSubmodelElementAsync(videoDataElementlId, videoDataElement);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace OHT_SampleClient
             // 센서 Data 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElement(videoDataElementlId);
+            var result = await client.RetrieveSubmodelElementAsync(videoDataElementlId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 

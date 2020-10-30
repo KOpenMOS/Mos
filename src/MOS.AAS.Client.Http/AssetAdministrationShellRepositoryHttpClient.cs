@@ -47,14 +47,14 @@ namespace MOS.AAS.Client.Http
             return await EvaluateResponseAsync<ElementContainer<IAssetAdministrationShell>>(response, response.Entity);
         }
 
-        public async Task<IResult> UpdateAssetAdministrationShell(string aasId, IAssetAdministrationShell aas)
+        public async Task<IResult> UpdateAssetAdministrationShellAsync(string aasId, IAssetAdministrationShell aas)
         {
             var request = CreateJsonContentRequest(GetUri(SHELL, aasId), HttpMethod.Put, aas);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult<IEnumerable<string>>> UploadAssetAdministrationShell(IEnumerable<string> filePaths)
+        public async Task<IResult<IEnumerable<string>>> UploadAssetAdministrationShellAsync(IEnumerable<string> filePaths)
         {
             var request = CreateFileContentRequest(GetUri("uploads"), HttpMethod.Post, filePaths);
             var response = await SendRequestAsync(request);

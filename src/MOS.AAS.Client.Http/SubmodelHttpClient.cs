@@ -31,168 +31,161 @@ namespace MOS.AAS.Client.Http
 
         public void SetSubmodelIdShot(string aasId, string submodelId) => this.Endpoint = new Uri($"{this.HttpClient.BaseAddress}shells/{aasId}/aas/submodels/{submodelId}/{SUBMODEL}");
 
-        public async Task<IResult<ISubmodel>> RetrieveSubmodel()
+        public async Task<IResult<ISubmodel>> RetrieveSubmodelAsync()
         {
             var request = base.CreateRequest(GetUri(), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<ISubmodel>(response, response.Entity);
         }
 
-        public async Task<IResult<IProperty>> CreateProperty(IProperty dataElement)
+        public async Task<IResult<IProperty>> CreatePropertyAsync(IProperty dataElement)
         {
             var request = base.CreateJsonContentRequest(GetUri(PROPERTIES), HttpMethod.Post, dataElement);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IProperty>(response, response.Entity);
         }
 
-        public async Task<IResult<IEvent>> CreateEvent(IEvent eventable)
+        public async Task<IResult<IEvent>> CreateEventAsync(IEvent eventable)
         {
             var request = base.CreateJsonContentRequest(GetUri(EVENTS), HttpMethod.Post, eventable);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IEvent>(response, response.Entity);
         }
 
-        public async Task<IResult<IOperation>> CreateOperation(IOperation operation)
+        public async Task<IResult<IOperation>> CreateOperationAsync(IOperation operation)
         {
             var request = base.CreateJsonContentRequest(GetUri(OPERATIONS), HttpMethod.Post, operation);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IOperation>(response, response.Entity);
         }
 
-        public async Task<IResult> DeleteProperty(string propertyId)
+        public async Task<IResult> DeletePropertyAsync(string propertyId)
         {
             var request = base.CreateRequest(GetUri(PROPERTIES, propertyId), HttpMethod.Delete);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult> DeleteEvent(string eventId)
+        public async Task<IResult> DeleteEventAsync(string eventId)
         {
             var request = base.CreateRequest(GetUri(EVENTS, eventId), HttpMethod.Delete);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult> DeleteOperation(string operationId)
+        public async Task<IResult> DeleteOperationAsync(string operationId)
         {
             var request = base.CreateRequest(GetUri(OPERATIONS, operationId), HttpMethod.Delete);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult<InvocationResponse>> InvokeOperation(string operationId, InvocationRequest invocationRequest)
+        public async Task<IResult<InvocationResponse>> InvokeOperationAsync(string operationId, InvocationRequest invocationRequest)
         {
             var request = base.CreateJsonContentRequest(GetUri(OPERATIONS, operationId), HttpMethod.Post, invocationRequest);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<InvocationResponse>(response, response.Entity);
         }
 
-        public async Task<IResult<IProperty>> RetrieveProperty(string propertyId)
+        public async Task<IResult<IProperty>> RetrievePropertyAsync(string propertyId)
         {
             var request = base.CreateRequest(GetUri(PROPERTIES, propertyId), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IProperty>(response, response.Entity);
         }
 
-        public async Task<IResult<IElementContainer<IProperty>>> RetrieveProperties()
+        public async Task<IResult<IElementContainer<IProperty>>> RetrievePropertiesAsync()
         {
             var request = base.CreateRequest(GetUri(PROPERTIES), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<ElementContainer<IProperty>>(response, response.Entity);
         }
 
-        public async Task<IResult<IValue>> RetrievePropertyValue(string propertyId)
+        public async Task<IResult<IValue>> RetrievePropertyValueAsync(string propertyId)
         {
             var request = base.CreateRequest(GetUri(PROPERTIES, propertyId, VALUE), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IValue>(response, response.Entity);
         }
 
-        public async Task<IResult<IEvent>> RetrieveEvent(string eventId)
+        public async Task<IResult<IEvent>> RetrieveEventAsync(string eventId)
         {
             var request = base.CreateRequest(GetUri(EVENTS, eventId), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IEvent>(response, response.Entity);
         }
 
-        public async Task<IResult<IElementContainer<IEvent>>> RetrieveEvents()
+        public async Task<IResult<IElementContainer<IEvent>>> RetrieveEventsAsync()
         {
             var request = base.CreateRequest(GetUri(EVENTS), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IElementContainer<IEvent>>(response, response.Entity);
         }
 
-        public async Task<IResult<IOperation>> RetrieveOperation(string operationId)
+        public async Task<IResult<IOperation>> RetrieveOperationAsync(string operationId)
         {
             var request = base.CreateRequest(GetUri(OPERATIONS, operationId), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IOperation>(response, response.Entity);
         }
 
-        public async Task<IResult<IElementContainer<IOperation>>> RetrieveOperations()
+        public async Task<IResult<IElementContainer<IOperation>>> RetrieveOperationsAsync()
         {
             var request = base.CreateRequest(GetUri(OPERATIONS), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<ElementContainer<IOperation>>(response, response.Entity);
         }
 
-        public async Task<IResult> UpdatePropertyValue(string propertyId, IValue value)
+        public async Task<IResult> UpdatePropertyValueAsync(string propertyId, IValue value)
         {
             var request = base.CreateJsonContentRequest(GetUri(PROPERTIES, propertyId, VALUE), HttpMethod.Put, value);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult<ISubmodelElement>> CreateSubmodelElement(ISubmodelElement submodelElement)
+        public async Task<IResult<ISubmodelElement>> CreateSubmodelElementAsync(ISubmodelElement submodelElement)
         {
             var request = base.CreateJsonContentRequest(GetUri(SUBMODELELEMENTS), HttpMethod.Post, submodelElement);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<ISubmodelElement>(response, response.Entity);
         }
 
-        public async Task<IResult<IElementContainer<ISubmodelElement>>> RetrieveSubmodelElements()
+        public async Task<IResult<IElementContainer<ISubmodelElement>>> RetrieveSubmodelElementsAsync()
         {
             var request = base.CreateRequest(GetUri(SUBMODELELEMENTS), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IElementContainer<ISubmodelElement>>(response, response.Entity);
         }
 
-        public async Task<IResult<ISubmodelElement>> RetrieveSubmodelElement(string submodelElementId)
+        public async Task<IResult<ISubmodelElement>> RetrieveSubmodelElementAsync(string submodelElementId)
         {
             var request = base.CreateRequest(GetUri(SUBMODELELEMENTS, submodelElementId), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<ISubmodelElement>(response, response.Entity);
         }
 
-        public async Task<IResult<IValue>> RetrieveSubmodelElementValue(string submodelElementId)
+        public async Task<IResult<IValue>> RetrieveSubmodelElementValueAsync(string submodelElementId)
         {
             var request = base.CreateRequest(GetUri(SUBMODELELEMENTS, submodelElementId, VALUE), HttpMethod.Get);
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IValue>(response, response.Entity);
         }
 
-        public async Task<IResult> UpdateSubmodelElement(string submodelElementId, ISubmodelElement submodelElement)
+        public async Task<IResult> UpdateSubmodelElementAsync(string submodelElementId, ISubmodelElement submodelElement)
         {
             var request = base.CreateJsonContentRequest(GetUri(SUBMODELELEMENTS, submodelElementId), HttpMethod.Put, submodelElement);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult> DeleteSubmodelElement(string submodelElementId)
+        public async Task<IResult> DeleteSubmodelElementAsync(string submodelElementId)
         {
             var request = base.CreateRequest(GetUri(SUBMODELELEMENTS, submodelElementId), HttpMethod.Delete);
             var response = await SendRequestAsync(request);
             return await base.EvaluateResponseAsync(response, response.Entity);
         }
 
-        public async Task<IResult<CallbackResponse>> InvokeOperationAsync(string operationId, InvocationRequest invocationRequest)
-        {
-            var request = base.CreateJsonContentRequest(GetUri(OPERATIONS, operationId, "async"), HttpMethod.Post, invocationRequest);
-            var response = await SendRequestAsync(request);
-            return await EvaluateResponseAsync<CallbackResponse>(response, response.Entity);
-        }
-
-        public async Task<IResult<InvocationResponse>> GetInvocationResult(string operationId, string requestId)
+        public async Task<IResult<InvocationResponse>> GetInvocationResultAsync(string operationId, string requestId)
         {
             var request = base.CreateRequest(GetUri(OPERATIONS, operationId, "invocationList", requestId), HttpMethod.Get);
             var response = await SendRequestAsync(request);
