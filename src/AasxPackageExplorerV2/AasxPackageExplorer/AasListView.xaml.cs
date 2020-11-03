@@ -31,7 +31,7 @@ namespace AasxPackageExplorer
         public void SetItems(IEnumerable<AasView> aasViews)
         {
             AasItems = new ObservableCollection<AasView>();
-            foreach (var item in aasViews)
+            foreach (var item in aasViews.OrderByDescending(t => t.TypeName).ThenBy(t => t.IdShort))
             {
                 AasItems.Add(item);
             }
