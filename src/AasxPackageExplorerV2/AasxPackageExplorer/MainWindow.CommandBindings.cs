@@ -272,6 +272,9 @@ namespace AasxPackageExplorer
                         var disconvery = new DiscoveryHttpClient(httpClient);
                         var shellTypes = await disconvery.RetrieveAssetAdministrationShellsAsync();
 
+                        if (shellTypes.Success == false)
+                            throw new ApplicationException("Communication Failed");
+
                         var aasList = new List<AasView>();
                         if (shellTypes != null && shellTypes.Entity != null)
                         {
