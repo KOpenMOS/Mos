@@ -19,7 +19,7 @@
         <ListView Grid.Row="0" x:Name="aasList">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="AAS" >
+                    <GridViewColumn Header="AAS" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
