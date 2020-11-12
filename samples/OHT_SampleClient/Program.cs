@@ -16,9 +16,9 @@ namespace OHT_SampleClient
             await testSender.SendSensorDataEventAsync("OHTM002", "Vibration", "EventVibration");
             await testSender.GetSensorDataAsync("OHTM002", "Vibration", "DataVibration");
 
-            await testSender.SendVideoAsync("OHTM002", "OnVideo1", "DataOnVideo1");
-            await testSender.SendVideoEventAsync("OHTM002", "OnVideo1", "EventOnVideo1");
-            await testSender.GetVideoAsync("OHTM002", "OnVideo1", "DataOnVideo1");
+            await testSender.SendVideoAsync("OHTM002", "OnVideo", "DataOnVideo");
+            await testSender.SendVideoEventAsync("OHTM002", "OnVideo", "EventOnVideo");
+            await testSender.GetVideoAsync("OHTM002", "OnVideo", "DataOnVideo");
         }
 
         private static HttpClient BuildHttpClient(Uri baseAddress)
