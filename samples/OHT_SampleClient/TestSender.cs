@@ -8,6 +8,7 @@ using BaSyx.Models.Core.AssetAdministrationShell.Generics;
 using BaSyx.Models.Core.AssetAdministrationShell.Implementations.SubmodelElementTypes;
 using BaSyx.Models.Core.Common;
 using BaSyx.Models.Extensions;
+using BaSyx.Utils.ResultHandling;
 
 using MOS.AAS.Client.Http;
 
@@ -29,7 +30,7 @@ namespace OHT_SampleClient
         public async Task SendSensorDataAsync(string aasId, string sensorDataSubmodelId, string sensorDataElementId)
         {
             // 임시생성 데이터
-            var rawDatas = BuildSensorRawDatas();
+            IEnumerable<object[]> rawDatas = BuildSensorRawDatas();
 
             /*
              * Submodel-SubmodelElement(Container)-SubmodelCollection-List<Property>
@@ -59,7 +60,7 @@ namespace OHT_SampleClient
                         }))
             };
 
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 센서 Data 저장하는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
@@ -77,13 +78,13 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task SendSensorDataEventAsync(string aasId, string eventsSubmodelId, string sensorDataEventId)
         {
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 센서 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 센서 data 갱신 EVENT FIRE
-            var result = await client.EventFireAsync(sensorDataEventId);
+            IResult result = await client.EventFireAsync(sensorDataEventId);
 
             Console.WriteLine($"{result.Success} {result.Messages}");
         }
@@ -97,18 +98,18 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task GetSensorDataAsync(string aasId, string sensorDataSubmodelId, string sensorDataElementId)
         {
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 센서 Data 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, sensorDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElementAsync(sensorDataElementId);
+            IResult<ISubmodelElement> result = await client.RetrieveSubmodelElementAsync(sensorDataElementId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
-            foreach (var sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
+            foreach (SubmodelElementCollection sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
             {
-                var propertyStrings = sensorData.Value.Cast<Property>().Select(p => $"{p.IdShort}:{p.Value}");
+                IEnumerable<string> propertyStrings = sensorData.Value.Cast<Property>().Select(p => $"{p.IdShort}:{p.Value}");
                 Console.WriteLine(string.Join(',', propertyStrings));
             }
         }
@@ -122,9 +123,9 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task SendVideoAsync(string aasId, string videoDataSubmodelId, string videoDataElementlId)
         {
-            var mp4FileUri = "https://sec.ch9.ms/ch9/d3a3/c6523df8-4b00-4943-b1d9-19d60b51d3a3/CTCDataScienceMod4V3_mid.mp4";
+            string mp4FileUri = "https://sec.ch9.ms/ch9/d3a3/c6523df8-4b00-4943-b1d9-19d60b51d3a3/CTCDataScienceMod4V3_mid.mp4";
 
-            var videoDataElement = new SubmodelElementCollection()
+            SubmodelElementCollection videoDataElement = new()
             {
                 IdShort = videoDataElementlId,
                 Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
@@ -141,7 +142,7 @@ namespace OHT_SampleClient
                 })
             };
 
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 영상 데이터 저장하는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
@@ -159,13 +160,13 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task SendVideoEventAsync(string aasId, string eventsSubmodelId, string videoDataEvetId)
         {
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 영상 Event Submodel endpoint 설정
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 영상 데이터 갱신 EVENT FIRE
-            var result = await client.EventFireAsync(videoDataEvetId);
+            IResult result = await client.EventFireAsync(videoDataEvetId);
             Console.WriteLine($"{result.Success} {result.Messages}");
         }
 
@@ -178,16 +179,16 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task GetVideoAsync(string aasId, string videoDataSubmodelId, string videoDataElementlId)
         {
-            var client = new SubmodelHttpClient(_httpClient);
+            SubmodelHttpClient client = new(_httpClient);
 
             // 영상 데이터 가져오는 Submodel endpoint 구성
             client.SetSubmodelIdShot(aasId, videoDataSubmodelId);
 
-            var result = await client.RetrieveSubmodelElementAsync(videoDataElementlId);
+            IResult<ISubmodelElement> result = await client.RetrieveSubmodelElementAsync(videoDataElementlId);
             SubmodelElementCollection submodelElementCollection = result.GetEntity<SubmodelElementCollection>();
             IElementContainer<ISubmodelElement> sensorElementCollection = submodelElementCollection.Value;
 
-            foreach (var sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
+            foreach (SubmodelElementCollection sensorData in sensorElementCollection.Cast<SubmodelElementCollection>())
             {
                 var property = sensorData.Value[0] as Property;
                 Console.WriteLine($"{property.IdShort} : {property.Value}");

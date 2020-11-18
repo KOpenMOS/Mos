@@ -6,7 +6,7 @@ using OHT_SampleClient;
 // https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/ 참고
 HttpClient s_client = BuildHttpClient(new Uri("http://dev.kopenmos.com/"));
 
-TestSender testSender = new TestSender(s_client);
+TestSender testSender = new(s_client);
 await testSender.SendSensorDataAsync("OHTM002", "Vibration", "DataVibration");
 await testSender.SendSensorDataEventAsync("OHTM002", "Vibration", "EventVibration");
 await testSender.GetSensorDataAsync("OHTM002", "Vibration", "DataVibration");
@@ -17,14 +17,14 @@ await testSender.GetVideoAsync("OHTM002", "OnVideo", "DataOnVideo");
 
 static HttpClient BuildHttpClient(Uri baseAddress)
 {
-    HttpClientHandler httpClientHandler = new HttpClientHandler
+    HttpClientHandler httpClientHandler = new()
     {
         // https://github.com/dotnet/runtime/issues/1844 참고
         MaxConnectionsPerServer = Environment.ProcessorCount * 2,
         AutomaticDecompression = System.Net.DecompressionMethods.Brotli,
     };
 
-    HttpClient httpClient = new HttpClient(httpClientHandler)
+    HttpClient httpClient = new(httpClientHandler)
     {
         BaseAddress = baseAddress
     };
