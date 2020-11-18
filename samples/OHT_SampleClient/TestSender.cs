@@ -83,7 +83,9 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 센서 data 갱신 EVENT FIRE
-            await client.EventFireAsync(sensorDataEventId);
+            var result = await client.EventFireAsync(sensorDataEventId);
+
+            Console.WriteLine($"{result.Success} {result.Messages}");
         }
 
         /// <summary>
@@ -163,7 +165,8 @@ namespace OHT_SampleClient
             client.SetSubmodelIdShot(aasId, eventsSubmodelId);
 
             // 영상 데이터 갱신 EVENT FIRE
-            await client.EventFireAsync(videoDataEvetId);
+            var result = await client.EventFireAsync(videoDataEvetId);
+            Console.WriteLine($"{result.Success} {result.Messages}");
         }
 
         /// <summary>
