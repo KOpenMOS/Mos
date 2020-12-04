@@ -60,5 +60,12 @@ namespace MOS.AAS.Client.Http
             var response = await SendRequestAsync(request);
             return await EvaluateResponseAsync<IEnumerable<string>>(response, response.Entity);
         }
+
+        public async Task<IResult<IElementContainer<IAssetAdministrationShell>>> RetrieveAssetAdministrationShellsByUserAsync(string userId)
+        {
+            var request = CreateRequest(GetUri("manager", userId), HttpMethod.Get);
+            var response = await SendRequestAsync(request);
+            return await EvaluateResponseAsync<ElementContainer<IAssetAdministrationShell>>(response, response.Entity);
+        }
     }
 }
