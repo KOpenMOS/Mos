@@ -123,7 +123,7 @@ namespace OHT_SampleClient
         /// <returns></returns>
         public async Task SendVideoAsync(string aasId, string videoDataSubmodelId, string videoDataElementlId)
         {
-            string mp4FileUri = "https://sec.ch9.ms/ch9/d3a3/c6523df8-4b00-4943-b1d9-19d60b51d3a3/CTCDataScienceMod4V3_mid.mp4";
+            string mp4FileUri = "https://sec3.ch9.ms/ch9/d3a3/c6523df8-4b00-4943-b1d9-19d60b51d3a3/CTCDataScienceMod4V3_mid.mp4";
 
             SubmodelElementCollection videoDataElement = new()
             {
@@ -136,7 +136,8 @@ namespace OHT_SampleClient
                         Value = new ElementContainer<ISubmodelElement>(new ISubmodelElement[]
                         {
                             new Property<DateTime> { IdShort = "Time", Value = DateTime.UtcNow },
-                            new File { IdShort = "VideoFile", MimeType = "video/mp4", Value = mp4FileUri },
+                            new File { IdShort = "OnVideo1", MimeType = "video/mp4", Value = mp4FileUri },
+                            new File { IdShort = "OnVideo2", MimeType = "video/mp4", Value = mp4FileUri },
                         })
                     },
                 })
