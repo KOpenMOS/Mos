@@ -30,6 +30,7 @@ namespace MOS.AAS.Client.Http
         }
 
         public void SetSubmodelIdShot(string aasId, string submodelId) => this.Endpoint = new Uri($"{this.HttpClient.BaseAddress}shells/{aasId}/aas/submodels/{submodelId}/{SUBMODEL}");
+        public void SetSubmodelIdShot(string aasId, string submodelId, DateTime changedTime) => this.Endpoint = new Uri($"{this.HttpClient.BaseAddress}time{changedTime.ToString("yyyyMMddHHmmssfff")}/{aasId}/aas/submodels/{submodelId}/{SUBMODEL}");
 
         public async Task<IResult<ISubmodel>> RetrieveSubmodelAsync()
         {
